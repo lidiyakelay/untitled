@@ -1,0 +1,63 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+class LocalStorageService {
+  // Create a secure storage instance
+  final FlutterSecureStorage _secureStorage;
+
+  // Constructor
+  LocalStorageService() : _secureStorage = const FlutterSecureStorage();
+
+  /// Save a key-value pair in secure storage
+  Future<void> write(String key, String value) async {
+    try {
+      await _secureStorage.write(key: key, value: value);
+    } catch (e) {
+      throw Exception('Failed to write to secure storage: $e');
+    }
+  }
+
+  /// Read a value from secure storage by key
+  Future<String?> read(String key) async {
+    try {
+      return await _secureStorage.read(key: key);
+    } catch (e) {
+      throw Exception('Failed to read from secure storage: $e');
+    }
+  }
+
+  /// Delete a value from secure storage by key
+  Future<void> delete(String key) async {
+    try {
+      await _secureStorage.delete(key: key);
+    } catch (e) {
+      throw Exception('Failed to delete from secure storage: $e');
+    }
+  }
+
+  /// Check if a key exists in secure storage
+  Future<bool> containsKey(String key) async {
+    try {
+      return await _secureStorage.containsKey(key: key);
+    } catch (e) {
+      throw Exception('Failed to check key existence in secure storage: $e');
+    }
+  }
+
+  /// Delete all values from secure storage
+  Future<void> clear() async {
+    try {
+      await _secureStorage.deleteAll();
+    } catch (e) {
+      throw Exception('Failed to clear secure storage: $e');
+    }
+  }
+
+  /// Get all key-value pairs from secure storage
+  Future<Map<String, String>> readAll() async {
+    try {
+      return await _secureStorage.readAll();
+    } catch (e) {
+      throw Exception('Failed to read all from secure storage: $e');
+    }
+  }
+}
